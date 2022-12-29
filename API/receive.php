@@ -100,7 +100,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 m-auto">
-                        <h6>Transfer Details:</h6>
+                        <h6>Details:</h6>
                         <div class="input-group mb-2">
                             <span class="input-group-text bg-transparent border-0"><img src="/moneytransfersystem/img/philippine-peso.png" alt="peso"></span>
                             <input class="form-control rounded shadow bg-body rounded" type="number" id="amount" name="amount" min="0.01" step="0.01" placeholder="Amount to Receive" method="post" required>

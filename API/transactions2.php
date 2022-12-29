@@ -66,9 +66,9 @@
         <div class="row d-flex justify-content-center">
             <div class="col mx-auto text-center">
                 <div class="btn-group">
-                    <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark active" aria-current="page">Send History</a>
+                    <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark" aria-current="page">Send History</a>
                     <a href="/moneytransfersystem/API/transactions1.php" class="btn btn-outline-dark">Receive History</a>
-                    <a href="/moneytransfersystem/API/transactions2.php" class="btn btn-outline-dark">All Records</a>
+                    <a href="/moneytransfersystem/API/transactions2.php" class="btn btn-outline-dark active">All Records</a>
                 </div>
             </div>
         </div>
@@ -82,76 +82,93 @@
                             <th>Sender Name</th>
                             <th>Sender Address</th>
                             <th>Phone Number</th>
-                            <th>Amount Sent</th>
+                            <th>Receiver Name</th>
+                            <th>Receiver Address</th>
+                            <th>Phone Number</th>
+                            <th>Amount</th>
                             <th>Reference Number</th>
                             <th>Date Issued</th>
-                            <th>Charge</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>12345</td>
+                            <td>TX12345</td>
                             <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
+                            <td>123 Main St, New York, NY 10001</td>
+                            <td>555-555-1212</td>
+                            <td>Jane Doe</td>
+                            <td>456 Park Ave, Los Angeles, CA 90001</td>
+                            <td>555-555-1212</td>
                             <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
+                            <td>REF12345</td>
+                            <td>2022-01-01</td>
+                            <td colspan="2">
+                                <button class="btn btn-primary mb-2">Edit</button>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>12345</td>
+                            <td>TX12345</td>
                             <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
+                            <td>123 Main St, New York, NY 10001</td>
+                            <td>555-555-1212</td>
+                            <td>Jane Doe</td>
+                            <td>456 Park Ave, Los Angeles, CA 90001</td>
+                            <td>555-555-1212</td>
                             <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
+                            <td>REF12345</td>
+                            <td>2022-01-01</td>
+                            <td colspan="2">
+                                <button class="btn btn-primary mb-2">Edit</button>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>12345</td>
+                            <td>TX12345</td>
                             <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
+                            <td>123 Main St, New York, NY 10001</td>
+                            <td>555-555-1212</td>
+                            <td>Jane Doe</td>
+                            <td>456 Park Ave, Los Angeles, CA 90001</td>
+                            <td>555-555-1212</td>
                             <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
+                            <td>REF12345</td>
+                            <td>2022-01-01</td>
+                            <td colspan="2">
+                                <button class="btn btn-primary mb-2">Edit</button>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>12345</td>
+                            <td>TX12345</td>
                             <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
+                            <td>123 Main St, New York, NY 10001</td>
+                            <td>555-555-1212</td>
+                            <td>Jane Doe</td>
+                            <td>456 Park Ave, Los Angeles, CA 90001</td>
+                            <td>555-555-1212</td>
                             <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
+                            <td>REF12345</td>
+                            <td>2022-01-01</td>
+                            <td colspan="2">
+                                <button class="btn btn-primary mb-2">Edit</button>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>12345</td>
+                            <td>TX12345</td>
                             <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
+                            <td>123 Main St, New York, NY 10001</td>
+                            <td>555-555-1212</td>
+                            <td>Jane Doe</td>
+                            <td>456 Park Ave, Los Angeles, CA 90001</td>
+                            <td>555-555-1212</td>
                             <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
+                            <td>REF12345</td>
+                            <td>2022-01-01</td>
+                            <td colspan="2">
+                                <button class="btn btn-primary mb-2">Edit</button>
                                 <button class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
