@@ -14,9 +14,9 @@
 
 <body>
     <!-- Start of NavBar -->
-    <nav class="navbar navbar-expand-lg bg-light p-2 m-2 shadow p-3 mb-5 bg-body rounded">
+    <nav class="navbar navbar-expand-lg bg-light p-2 m-2 mb-5 shadow bg-body rounded">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand">
                 <img src="img/mt-logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 MoneyWise
             </a>
@@ -57,13 +57,29 @@
     <header>
         <div class="container">
             <div class="row">
-                <div class="col-6">
+                <div class="col-6 mt-4">
                     <h1 class="text-start">
                         <img src="img/mt-logo.png" alt="Logo" width="60" height="40" class="d-inline-block align-text-top">
                         Welcome to MoneyWise!
                     </h1>
                     <p>Our money transfer system is a convenient and efficient way to send and receive funds electronically. The system is designed to be user-friendly and easy to use. Whether you're sending money to a friend or receiving money from your loved ones, our money transfer system is a reliable and convenient choice.</p>
+                    <h5 class="text-center m-4">Follow us on:</h5>
+                    <div class="d-flex justify-content-around">
+                        <a href="#" class="d-inline-block m-2">
+                            <img src="/moneytransfersystem/img/facebook.png" width="40" height="40" alt="Facebook" class="img-fluid">
+                        </a>
+                        <a href="#" class="d-inline-block m-2">
+                            <img src="/moneytransfersystem/img/instagram.png" width="40" height="40" alt="Instagram" class="img-fluid">
+                        </a>
+                        <a href="#" class="d-inline-block m-2">
+                            <img src="/moneytransfersystem/img/twitter.png" width="40" height="40" alt="Twitter" class="img-fluid">
+                        </a>
+                        <a href="#" class="d-inline-block m-2">
+                            <img src="/moneytransfersystem/img/gmail.png" width="40" height="40" alt="Gmail" class="img-fluid">
+                        </a>
+                    </div>
                 </div>
+
                 <div class="col-6">
                     <h4 class="text-start p-3 m-2">
                         What do you want to do?
