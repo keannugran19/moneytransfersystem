@@ -1,3 +1,28 @@
+<?php
+
+@include 'db_connect.php';
+
+session_start();
+
+if (isset($_POST['submit'])) {
+
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $pass = md5($_POST['password']);
+
+    $select = "SELECT * FROM user_account WHERE email = '$email' && password = '$pass'";
+
+    $result = mysqli_query($conn, $select);
+
+    if (mysqli_num_rows($result) > 0) {
+        $_SESSION['email'] = $email;
+        header('location:home.php');
+    } else {
+        $error[] = 'Incorrect email or password';
+    }
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -22,14 +47,23 @@
                 </h2>
                 <p class="text-center text-muted lead">For easier and faster transactions.</p>
                 <!-- Start of Form -->
-                <form action="#" method="POST">
+                <form action="#" method="post">
+                    <?php
+                    if (isset($error)) {
+                        foreach ($error as $error) {
+                            echo '<span class="error-msg">' . $error . '</span>';
+                        }
+                    }
+                    ?>
                     <div class="input-group mb-2">
                         <input class="form-control rounded shadow bg-body rounded" type="email" name="email" id="email" placeholder="Email" method="post" required>
                     </div>
                     <div class="input-group mb-2">
                         <input class="form-control rounded shadow bg-body rounded" type="password" name="password" id="password" placeholder="Password" method="post" required>
                     </div>
-                    <button class="input-group btn btn-warning shadow rounded" id="submit" type="submit">Log In</button>
+                    <button class="input-group mb-2 btn btn-warning shadow rounded" id="submit" name="submit" type="submit">Log In</button>
+
+                    <p class="text-center">don't have an account? <a class="text-success" href="register.php">register now</p>
                 </form>
 
                 <!-- End of Form -->

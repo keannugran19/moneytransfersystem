@@ -1,3 +1,10 @@
+<?php
+
+@include 'db_connect.php';
+
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -16,7 +23,7 @@
     <!-- Start of NavBar -->
     <nav class="navbar navbar-expand-lg bg-light p-2 m-2 shadow mb-2 bg-body rounded">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/moneytransfersystem/home.php">
+            <a class="navbar-brand">
                 <img src="/moneytransfersystem/img/mt-logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 MoneyWise
             </a>
@@ -26,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/moneytransfersystem/home.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/moneytransfersystem/API/home.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,8 +52,8 @@
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/moneytransfersystem/img/user-icon.png" alt="Logo" width="24" height="24" class="mx-1 d-inline-block align-text-top"><b>Account</b></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/moneytransfersystem/API/login.php">Login</a></li>
-                            <li><a class="dropdown-item" href="/moneytransfersystem/API/register.php">Register</a></li>
+                            <li class="m-2"><?php echo $_SESSION['email']; ?></li>
+                            <li><a class="dropdown-item" href="/moneytransfersystem/API/logout.php">Logout</a></li>
                         </ul>
                 </ul>
             </div>
@@ -63,38 +70,38 @@
             </div>
         </div>
         <!-- Start of Form -->
-        <form action="#" method="POST">
+        <form action="sendProcess.php" method="post">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-6">
                         <h6>Sender Details:</h6>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="firstname" id="firstname" placeholder="First Name" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="sfirstname" id="sfirstname" placeholder="First Name" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="lastname" id="lastname" placeholder="Last Name" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="slastname" id="slastname" placeholder="Last Name" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="tel" name="sphonenumber" id="sphonenumber" placeholder="Phone Number" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="address" id="address" placeholder="Address" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="saddress" id="saddress" placeholder="Address" method="post" required>
                         </div>
-                        <!-- <button class="input-group btn btn-warning shadow rounded" id="submit" type="submit">Send Money</button> -->
+
                     </div>
                     <div class="col-6">
                         <h6>Receiver Details:</h6>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="firstname" id="firstname" placeholder="First Name" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="rfirstname" id="firstname" placeholder="First Name" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="lastname" id="lastname" placeholder="Last Name" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="rlastname" id="lastname" placeholder="Last Name" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="tel" name="rphonenumber" id="phonenumber" placeholder="Phone Number" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded shadow bg-body rounded" type="text" name="address" id="address" placeholder="Address" method="post" required>
+                            <input class="form-control rounded shadow bg-body rounded" type="text" name="raddress" id="address" placeholder="Address" method="post" required>
                         </div>
                     </div>
                 </div>
@@ -108,7 +115,7 @@
                         <div class="input-group mb-2">
                             <input class="form-control rounded p-3 shadow bg-body rounded" type="text" name="remarks" id="remarks" placeholder="Purpose/Remarks" method="post">
                         </div>
-                        <button class="input-group btn btn-warning shadow rounded" id="submit" type="submit">Send Money</button>
+                        <button class="input-group btn btn-warning shadow rounded" id="submit" name="submit" type="submit">Send Money</button>
                     </div>
                 </div>
             </div>

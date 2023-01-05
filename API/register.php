@@ -1,3 +1,37 @@
+<?php
+
+@include 'db_connect.php';
+
+session_start();
+
+if (isset($_POST['submit'])) {
+
+    $firstname = $_POST['firstname'];
+    $middlename = $_POST['middlename'];
+    $lastname = $_POST['lastname'];
+    $phone_number = $_POST['phone_number'];
+    $gender = $_POST['gender'];
+    $address = $_POST['address'];
+    $birthday = $_POST['birthday'];
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $pass = md5($_POST['password']);
+
+    $select = "SELECT * FROM user_account WHERE email = '$email' && password = '$pass'";
+
+    $result = mysqli_query($conn, $select);
+
+    if (mysqli_num_rows($result) > 0) {
+        $error[] = 'User already exists!';
+    } else {
+        $insert = "INSERT INTO user_account(firstname, middlename, lastname, phone_number, gender, address, birthday, email, password) VALUES ('$firstname', '$middlename', '$lastname', '$phone_number', '$gender', '$address', '$birthday', '$email', '$pass')";
+        mysqli_query($conn, $insert);
+        header('location:login.php');
+    }
+}
+
+?>
+
+
 <!doctype html>
 <html lang="en">
 
@@ -23,6 +57,13 @@
                 <p class="text-center text-muted lead">For easier and faster transactions.</p>
                 <!-- Start of Form -->
                 <form action="#" method="post">
+                    <?php
+                    if (isset($error)) {
+                        foreach ($error as $error) {
+                            echo '<span class="error-msg">' . $error . '</span>';
+                        }
+                    }
+                    ?>
                     <div class="input-group mb-2">
                         <input class="form-control rounded shadow bg-body rounded" type="text" name="firstname" id="firstname" placeholder="First Name" method="post" required>
                     </div>
@@ -33,7 +74,7 @@
                         <input class="form-control rounded shadow bg-body rounded" type="text" name="lastname" id="lastname" placeholder="Last Name" method="post" required>
                     </div>
                     <div class="input-group mb-2">
-                        <input class="form-control rounded shadow bg-body rounded" type="tel" name="phonenumber" id="phonenumber" placeholder="Phone Number" method="post" required>
+                        <input class="form-control rounded shadow bg-body rounded" type="tel" name="phone_number" id="phone_number" placeholder="Phone Number" method="post" required>
                     </div>
 
                     <select class="btn btn-light dropdown-toggle mb-2 shadow bg-body rounded" name="gender" id="gender">
@@ -47,7 +88,7 @@
                     </div>
                     <div class="input-group mb-2">
                         <label for="birthday">Birthday:</label>
-                        <input id="birthday" class="form-control shadow bg-body rounded mx-1" type="date" />
+                        <input id="birthday" class="form-control shadow bg-body rounded mx-1" name="birthday" type="date" />
                     </div>
                     <div class="input-group mb-2">
                         <input class="form-control rounded shadow bg-body rounded" type="email" name="email" id="email" placeholder="Email" method="post" required>
@@ -55,7 +96,7 @@
                     <div class="input-group mb-2">
                         <input class="form-control rounded shadow bg-body rounded" type="password" name="password" id="password" placeholder="Password" method="post" required>
                     </div>
-                    <button class="input-group btn btn-warning shadow rounded" id="submit" type="submit">Register</button>
+                    <button class="input-group btn btn-warning shadow rounded" id="submit" name="submit" type="submit">Register</button>
                 </form>
             </div>
         </div>

@@ -1,3 +1,19 @@
+<?php
+
+@include 'db_connect.php';
+
+session_start();
+?>
+
+<?php
+
+require_once("sendConfig.php");
+
+$data = new sendConfig();
+$all = $data->fetchAll();
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -16,7 +32,7 @@
     <!-- Start of NavBar -->
     <nav class="navbar navbar-expand-lg bg-light p-2 m-2 shadow mb-2 bg-body rounded">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/moneytransfersystem/home.php">
+            <a class="navbar-brand">
                 <img src="/moneytransfersystem/img/mt-logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 MoneyWise
             </a>
@@ -26,7 +42,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/moneytransfersystem/home.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/moneytransfersystem/API/home.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,8 +61,8 @@
                         <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="/moneytransfersystem/img/user-icon.png" alt="Logo" width="24" height="24" class="mx-1 d-inline-block align-text-top"><b>Account</b></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/moneytransfersystem/API/login.php">Login</a></li>
-                            <li><a class="dropdown-item" href="/moneytransfersystem/API/register.php">Register</a></li>
+                            <li class="m-2"><?php echo $_SESSION['email']; ?></li>
+                            <li><a class="dropdown-item" href="/moneytransfersystem/API/logout.php">Logout</a></li>
                         </ul>
                 </ul>
             </div>
@@ -75,7 +91,7 @@
 
         <div class="row">
             <div class="container-fluid">
-                <table class="table table-striped table-dark mt-4">
+                <table class="table table-responsive table-striped table-dark mt-4">
                     <thead>
                         <tr>
                             <th>Transaction Code</th>
@@ -86,83 +102,41 @@
                             <th>Reference Number</th>
                             <th>Date Issued</th>
                             <th>Charge</th>
+                            <th>Remarks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
-                            <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
-                            <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
-                            <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
-                            <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St</td>
-                            <td>555-555-5555</td>
-                            <td>$100</td>
-                            <td>98765</td>
-                            <td>01/01/2022</td>
-                            <td>P50.00</td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        <?php
+                        foreach ($all as $key => $val) {
+                        ?>
+                            <tr>
+                                <td><?= $val['transaction_code'] ?></td>
+                                <td><?= $val['sender_fname'] ?> <?= $val['sender_lname'] ?></td>
+                                <td><?= $val['sender_address'] ?></td>
+                                <td><?= $val['sender_phone'] ?></td>
+                                <td><?= $val['amount'] ?></td>
+                                <td>1000</td>
+                                <td><?= $val['date_issued'] ?></td>
+                                <td>P50.00</td>
+                                <td><?= $val['remarks'] ?></td>
+                                <td colspan="2">
+                                    <a class="btn btn-primary mb-2" href="edit.php?transaction_code=<?= $val['transaction_code'] ?>">Edit</a>
+                                    <a class="btn btn-danger" href="delete.php?transaction_code=<?= $val['transaction_code'] ?>&req=delete">Delete</a>
+                                </td>
+                            </tr>
                     </tbody>
+                <?php
+                        }
+                ?>
                 </table>
             </div>
         </div>
+    </div>
 
-        <!-- End of Content -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- End of Content -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
 
 </html>
