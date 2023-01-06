@@ -112,7 +112,7 @@ session_start();
                             <input class="form-control rounded shadow bg-body rounded" type="number" id="amount" name="amount" min="0.01" step="0.01" placeholder="Amount to Receive" method="post" required>
                         </div>
                         <div class="input-group mb-2">
-                            <input class="form-control rounded p-3 shadow bg-body rounded" type="text" name="referencenumber" id="reference" placeholder="Enter Reference Number" method="post">
+                            <input class="form-control rounded p-3 shadow bg-body rounded" type="text" name="referencenumber" id="reference" placeholder="Enter Transaction Code/Reference Number" method="post">
                         </div>
                         <button class="input-group btn btn-warning shadow rounded" id="submit" name="submit" type="submit">Receive Money</button>
                     </div>

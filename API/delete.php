@@ -20,12 +20,12 @@ require_once("receiveConfig.php");
 
 $record = new receiveConfig();
 
-if (isset($_GET['transaction_code']) && isset($_GET['req'])) {
+if (isset($_GET['receive_id']) && isset($_GET['req'])) {
     if ($_GET['req'] == "delete") {
-        $record->setCode($_GET['transaction_code']);
+        $record->setCode($_GET['receive_id']);
         $record->delete();
 
-        echo "<script>alert('Data Deleted Successfully!');document.location='transactions.php'</script>";
+        echo "<script>alert('Data Deleted Successfully!');document.location='transactions1.php'</script>";
     }
 }
 ?>

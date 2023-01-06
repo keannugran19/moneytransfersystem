@@ -1,8 +1,8 @@
 <?php
 require_once("receiveConfig.php");
 $data = new receiveConfig();
-$transaction_code = $_GET['transaction_code'];
-$data->setCode($transaction_code);
+$receive_id = $_GET['receive_id'];
+$data->setCode($receive_id);
 
 if (isset($_POST['edit'])) {
     $data->setReceiver_fname($_POST['rfirstname']);

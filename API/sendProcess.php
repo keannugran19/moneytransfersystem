@@ -16,5 +16,5 @@ if (isset($_POST['submit'])) {
     $sc->setRemarks($_POST['remarks']);
     $sc->insertData();
 
-    echo "<script>alert('Transfer Completed Successfully!');document.location='send.php'</script>";
+    echo "<script>alert('Transfer Completed Successfully!');document.location='home.php'</script>";
 }

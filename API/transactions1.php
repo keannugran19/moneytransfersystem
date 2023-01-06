@@ -28,6 +28,12 @@ $all = $data->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap" rel="stylesheet">
 </head>
 
+<style>
+    td {
+        font-size: 13px;
+    }
+</style>
+
 <body>
     <!-- Start of NavBar -->
     <nav class="navbar navbar-expand-lg bg-light p-2 m-2 shadow mb-2 bg-body rounded">
@@ -84,6 +90,7 @@ $all = $data->fetchAll();
                 <div class="btn-group">
                     <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark" aria-current="page">Send History</a>
                     <a href="/moneytransfersystem/API/transactions1.php" class="btn btn-outline-dark active">Receive History</a>
+                    <a href="/moneytransfersystem/API/dailysend.php" class="btn btn-outline-dark" aria-current="page">Daily Records</a>
                     <a href="/moneytransfersystem/API/transactions2.php" class="btn btn-outline-dark">All Records</a>
                 </div>
             </div>
@@ -94,12 +101,12 @@ $all = $data->fetchAll();
                 <table class="table table-striped table-dark mt-4">
                     <thead>
                         <tr>
-                            <th>Transaction Code</th>
+                            <th>Receive ID</th>
                             <th>Receiver Name</th>
                             <th>Receiver Address</th>
                             <th>Phone Number</th>
                             <th>Amount Received</th>
-                            <th>Reference Number</th>
+                            <th>Transaction Code</th>
                             <th>Date Issued</th>
                             <th>Action</th>
                         </tr>
@@ -109,16 +116,16 @@ $all = $data->fetchAll();
                         foreach ($all as $key => $val) {
                         ?>
                             <tr>
-                                <td><?= $val['transaction_code'] ?></td>
+                                <td><?= $val['receive_id'] ?></td>
                                 <td><?= $val['receiver_fname'] ?> <?= $val['receiver_lname'] ?></td>
                                 <td><?= $val['receiver_address'] ?></td>
                                 <td><?= $val['receiver_phone'] ?></td>
                                 <td><?= $val['amount'] ?></td>
-                                <td>1000</td>
+                                <td><?= $val['transaction_code'] ?></td>
                                 <td><?= $val['date_issued'] ?></td>
                                 <td colspan="2">
-                                    <a class="btn btn-primary mb-2" href="editReceive.php?transaction_code=<?= $val['transaction_code'] ?>">Edit</a>
-                                    <a class="btn btn-danger" href="delete.php?transaction_code=<?= $val['transaction_code'] ?>&req=delete">Delete</a>
+                                    <a class="btn btn-primary btn-sm mb-2" href="editReceive.php?receive_id=<?= $val['receive_id'] ?>">Edit</a>
+                                    <a class="btn btn-danger btn-sm" href="delete.php?receive_id=<?= $val['receive_id'] ?>&req=delete">Delete</a>
                                 </td>
                             </tr>
                     </tbody>

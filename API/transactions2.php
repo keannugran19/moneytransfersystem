@@ -18,6 +18,11 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap" rel="stylesheet">
 </head>
+<style>
+    td {
+        font-size: 13px;
+    }
+</style>
 
 <body>
     <!-- Start of NavBar -->
@@ -75,6 +80,7 @@ session_start();
                 <div class="btn-group">
                     <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark" aria-current="page">Send History</a>
                     <a href="/moneytransfersystem/API/transactions1.php" class="btn btn-outline-dark">Receive History</a>
+                    <a href="/moneytransfersystem/API/dailysend.php" class="btn btn-outline-dark" aria-current="page">Daily Records</a>
                     <a href="/moneytransfersystem/API/transactions2.php" class="btn btn-outline-dark active">All Records</a>
                 </div>
             </div>
@@ -82,105 +88,26 @@ session_start();
 
         <div class="row">
             <div class="container-fluid">
-                <table class="table table-striped table-dark mt-4">
-                    <thead>
-                        <tr>
-                            <th>Transaction Code</th>
-                            <th>Sender Name</th>
-                            <th>Sender Address</th>
-                            <th>Phone Number</th>
-                            <th>Receiver Name</th>
-                            <th>Receiver Address</th>
-                            <th>Phone Number</th>
-                            <th>Amount</th>
-                            <th>Reference Number</th>
-                            <th>Date Issued</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>TX12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St, New York, NY 10001</td>
-                            <td>555-555-1212</td>
-                            <td>Jane Doe</td>
-                            <td>456 Park Ave, Los Angeles, CA 90001</td>
-                            <td>555-555-1212</td>
-                            <td>$100</td>
-                            <td>REF12345</td>
-                            <td>2022-01-01</td>
-                            <td colspan="2">
-                                <button class="btn btn-primary mb-2">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TX12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St, New York, NY 10001</td>
-                            <td>555-555-1212</td>
-                            <td>Jane Doe</td>
-                            <td>456 Park Ave, Los Angeles, CA 90001</td>
-                            <td>555-555-1212</td>
-                            <td>$100</td>
-                            <td>REF12345</td>
-                            <td>2022-01-01</td>
-                            <td colspan="2">
-                                <button class="btn btn-primary mb-2">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TX12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St, New York, NY 10001</td>
-                            <td>555-555-1212</td>
-                            <td>Jane Doe</td>
-                            <td>456 Park Ave, Los Angeles, CA 90001</td>
-                            <td>555-555-1212</td>
-                            <td>$100</td>
-                            <td>REF12345</td>
-                            <td>2022-01-01</td>
-                            <td colspan="2">
-                                <button class="btn btn-primary mb-2">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TX12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St, New York, NY 10001</td>
-                            <td>555-555-1212</td>
-                            <td>Jane Doe</td>
-                            <td>456 Park Ave, Los Angeles, CA 90001</td>
-                            <td>555-555-1212</td>
-                            <td>$100</td>
-                            <td>REF12345</td>
-                            <td>2022-01-01</td>
-                            <td colspan="2">
-                                <button class="btn btn-primary mb-2">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TX12345</td>
-                            <td>John Smith</td>
-                            <td>123 Main St, New York, NY 10001</td>
-                            <td>555-555-1212</td>
-                            <td>Jane Doe</td>
-                            <td>456 Park Ave, Los Angeles, CA 90001</td>
-                            <td>555-555-1212</td>
-                            <td>$100</td>
-                            <td>REF12345</td>
-                            <td>2022-01-01</td>
-                            <td colspan="2">
-                                <button class="btn btn-primary mb-2">Edit</button>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <?php
+
+                @include 'db_connect.php';
+
+                $sql = "SELECT * FROM transfer CROSS JOIN receive";
+                $result = mysqli_query($conn, $sql);
+
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<table class="table table-striped table-dark mt-4">';
+                    echo "<tr><th>Sender Name</th><th>Sender Address</th><th>Phone Number</th><th>Receiver Name</th><th>Receiver Address</th><th>Phone Number</th><th>Amount</th><th>Transaction Code</th><th>Date Issued</th></tr>";
+                    // Output data of each row
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr><td>" . $row["sender_fname"] . " " . $row["sender_lname"] . "</td><td>" . $row["sender_address"] . "</td><td>" . $row["sender_phone"] . "</td><td>" . $row["receiver_fname"] . " " . $row["receiver_lname"] . "</td><td>" . $row["receiver_address"] . "</td><td>" . $row["receiver_phone"] . "</td><td>" . $row["amount"] . "</td><td>" . $row["transaction_code"] . "</td><td>" . $row["date_issued"] . "</td></tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "0 results";
+                }
+                ?>
             </div>
         </div>
 

@@ -88,9 +88,9 @@ $all = $data->fetchAll();
         <div class="row d-flex justify-content-center">
             <div class="col mx-auto text-center">
                 <div class="btn-group">
-                    <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark active" aria-current="page">Send History</a>
+                    <a href="/moneytransfersystem/API/transactions.php" class="btn btn-outline-dark" aria-current="page">Send History</a>
                     <a href="/moneytransfersystem/API/transactions1.php" class="btn btn-outline-dark">Receive History</a>
-                    <a href="/moneytransfersystem/API/dailysend.php" class="btn btn-outline-dark" aria-current="page">Daily Records</a>
+                    <a href="/moneytransfersystem/API/dailysend.php" class="btn btn-outline-dark active" aria-current="page">Daily Records</a>
                     <a href="/moneytransfersystem/API/transactions2.php" class="btn btn-outline-dark">All Records</a>
                 </div>
             </div>
@@ -98,44 +98,25 @@ $all = $data->fetchAll();
 
         <div class="row">
             <div class="container-fluid">
-                <table class="table table-responsive table-striped table-dark mt-4">
-                    <thead>
-                        <tr>
-                            <th>Transaction Code</th>
-                            <th>Sender Name</th>
-                            <th>Sender Address</th>
-                            <th>Phone Number</th>
-                            <th>Amount Sent</th>
-                            <th>Date Issued</th>
-                            <th>Charge</th>
-                            <th>Remarks</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($all as $key => $val) {
-                        ?>
-                            <tr>
-                                <td><?= $val['transaction_code'] ?></td>
-                                <td><?= $val['sender_fname'] ?> <?= $val['sender_lname'] ?></td>
-                                <td><?= $val['sender_address'] ?></td>
-                                <td><?= $val['sender_phone'] ?></td>
-                                <td><?= $val['amount'] ?></td>
-                                <td><?= $val['date_issued'] ?></td>
-                                <td>P50.00</td>
-                                <td><?= $val['remarks'] ?></td>
-                                <td colspan="2">
-                                    <a class="btn btn-primary btn-sm mb-2" href="edit.php?transaction_code=<?= $val['transaction_code'] ?>">Edit</a>
-                                    <a class="btn btn-danger btn-sm" href="delete.php?transaction_code=<?= $val['transaction_code'] ?>&req=delete">Delete</a>
-                                </td>
-                            </tr>
-                    </tbody>
                 <?php
-                        }
-                ?>
+                @include 'db_connect.php';
 
-                </table>
+                $sql = "SELECT * FROM transfer WHERE date_issued = (SELECT CURDATE())";
+
+                $result = mysqli_query($conn, $sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<table class="table table-striped table-dark mt-4">';
+                    echo "<tr><th>Sender Name</th><th>Sender Address</th><th>Phone Number</th><th>Receiver Name</th><th>Receiver Address</th><th>Phone Number</th><th>Amount</th><th>Transaction Code</th><th>Date Issued</th></tr>";
+                    // Output data of each row
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr><td>" . $row["sender_fname"] . " " . $row["sender_lname"] . "</td><td>" . $row["sender_address"] . "</td><td>" . $row["sender_phone"] . "</td><td>" . $row["receiver_fname"] . " " . $row["receiver_lname"] . "</td><td>" . $row["receiver_address"] . "</td><td>" . $row["receiver_phone"] . "</td><td>" . $row["amount"] . "</td><td>" . $row["transaction_code"] . "</td><td>" . $row["date_issued"] . "</td></tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "0 results";
+                }
+                ?>
             </div>
         </div>
     </div>

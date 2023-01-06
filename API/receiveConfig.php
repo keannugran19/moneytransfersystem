@@ -4,7 +4,7 @@ require_once("pdoDB.php");
 
 class receiveConfig
 {
-    private $transaction_code;
+    private $receive_id;
     private $sender_fname;
     private $sender_lname;
     private $sender_phone;
@@ -18,7 +18,7 @@ class receiveConfig
     protected $dbconn;
 
     public function __construct(
-        $transaction_code = 0,
+        $receive_id = 0,
         $sender_fname = "",
         $sender_lname = "",
         $sender_phone = "",
@@ -30,7 +30,7 @@ class receiveConfig
         $amount = "",
         $reference_number = ""
     ) {
-        $this->transaction_code = $transaction_code;
+        $this->receive_id = $receive_id;
         $this->sender_fname = $sender_fname;
         $this->sender_lname = $sender_lname;
         $this->sender_phone = $sender_phone;
@@ -45,14 +45,14 @@ class receiveConfig
         $this->dbconn = new PDO(DB_TYPE . ":host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PWD, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     }
 
-    public function setCode($transaction_code)
+    public function setCode($receive_id)
     {
-        $this->transaction_code = $transaction_code;
+        $this->receive_id = $receive_id;
     }
 
     public function getCode()
     {
-        return $this->transaction_code;
+        return $this->receive_id;
     }
 
     public function setSender_fname($sender_fname)
@@ -168,7 +168,7 @@ class receiveConfig
                 sender_phone,
                 sender_address,
                 amount,
-                reference_number
+                transaction_code
                 ) VALUES (?,?,?,?,?,?,?,?,?,?)");
 
             $stm->execute([
@@ -203,8 +203,8 @@ class receiveConfig
     public function fetchOne()
     {
         try {
-            $stm = $this->dbconn->prepare("SELECT * FROM receive WHERE transaction_code=?");
-            $stm->execute([$this->transaction_code]);
+            $stm = $this->dbconn->prepare("SELECT * FROM receive WHERE receive_id=?");
+            $stm->execute([$this->receive_id]);
             return $stm->fetchAll();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -220,7 +220,7 @@ class receiveConfig
             receiver_phone = ?,
             receiver_address = ?,
             amount = ?
-            WHERE transaction_code = ?
+            WHERE receive_id = ?
             ");
 
             $stm->execute([
@@ -229,7 +229,7 @@ class receiveConfig
                 $this->receiver_phone,
                 $this->receiver_address,
                 $this->amount,
-                $this->transaction_code
+                $this->receive_id
             ]);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -239,8 +239,8 @@ class receiveConfig
     public function delete()
     {
         try {
-            $stm = $this->dbconn->prepare("DELETE FROM receive WHERE transaction_code=?");
-            $stm->execute([$this->transaction_code]);
+            $stm = $this->dbconn->prepare("DELETE FROM receive WHERE receive_id=?");
+            $stm->execute([$this->receive_id]);
             return $stm->fetchAll();
             echo "<script>alert('Data Deleted Successfully!');document.location='transactions.php'</script>";
         } catch (Exception $e) {

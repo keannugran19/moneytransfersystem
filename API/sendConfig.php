@@ -15,7 +15,6 @@ class sendConfig
     private $receiver_address;
     private $amount;
     private $remarks;
-    private $reference_number;
     protected $dbconn;
 
     public function __construct(
@@ -29,8 +28,7 @@ class sendConfig
         $receiver_phone = "",
         $receiver_address = "",
         $amount = "",
-        $remarks = "",
-        $reference_number = ""
+        $remarks = ""
     ) {
         $this->transaction_code = $transaction_code;
         $this->sender_fname = $sender_fname;
@@ -43,7 +41,6 @@ class sendConfig
         $this->receiver_address = $receiver_address;
         $this->amount = $amount;
         $this->remarks = $remarks;
-        $this->reference_number = $reference_number;
 
         $this->dbconn = new PDO(DB_TYPE . ":host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PWD, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
     }
@@ -158,16 +155,6 @@ class sendConfig
         return $this->remarks;
     }
 
-    public function setReferenceNumber($reference_number)
-    {
-        $this->reference_number = $reference_number;
-    }
-
-    public function getReferenceNumber()
-    {
-        return $this->reference_number;
-    }
-
     public function insertData()
     {
         try {
@@ -181,9 +168,8 @@ class sendConfig
                 receiver_phone,
                 receiver_address,
                 amount,
-                remarks,
-                reference_number
-                ) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+                remarks
+                ) VALUES (?,?,?,?,?,?,?,?,?,?)");
 
             $stm->execute([
                 $this->sender_fname,
@@ -195,11 +181,10 @@ class sendConfig
                 $this->receiver_phone,
                 $this->receiver_address,
                 $this->amount,
-                $this->remarks,
-                $this->reference_number
+                $this->remarks
             ]);
 
-            echo "<script>alert('Transfer Completed Successfully!');document.location='send.php'</script>";
+            echo "<script>alert('Transfer Completed Successfully!');document.location='home.php'</script>";
         } catch (Exception $e) {
             return $e->getMessage();
         }
